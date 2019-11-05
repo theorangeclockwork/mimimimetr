@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Balls</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
+
+<body>
+
+<form method="post" th:action="@{/contenders/add}" th:object="${contenders}">
+    <fieldset>
+        <input type="submit" id="submitButton" th:value="Save">
+        <input type="reset" id="resetButton" name="reset" th:value="Reset">
+        <table>
+            <thead>
+            <tr>
+                <th> Name </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="contender, item : *{contenderList}">
+                <td><input th:field = "*{contenderList[__${item.index}__].name} "></td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+
+</form>
+</body>
+
+</html>
