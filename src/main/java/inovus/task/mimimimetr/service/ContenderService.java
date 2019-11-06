@@ -17,4 +17,8 @@ public interface ContenderService {
 
     List<Contender> getTwoRandomContendersNotUsedBefore(Set<Long> ids);
 
+    List<Contender> getTwoRandomContenders();
+
+    void updateContenderIncrementScoreBy1(Long id);
+
 }

@@ -8,7 +8,8 @@
 
 <body>
 
-<form method="post" th:action="@{/contenders/add}" th:object="${contenders}">
+<form method="post" th:action="@{/contenders/add}" th:object="${contenders}" enctype="multipart/form-data">
+
     <fieldset>
         <input type="submit" id="submitButton" th:value="Save">
         <input type="reset" id="resetButton" name="reset" th:value="Reset">
@@ -16,11 +17,13 @@
             <thead>
             <tr>
                 <th> Name </th>
+                <th> Image </th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="contender, item : *{contenderList}">
                 <td><input th:field = "*{contenderList[__${item.index}__].name} "></td>
+                <td><input name="images" type="file"></td>
             </tr>
             </tbody>
         </table>

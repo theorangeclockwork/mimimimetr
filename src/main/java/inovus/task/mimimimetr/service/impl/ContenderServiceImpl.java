@@ -47,5 +47,14 @@ public class ContenderServiceImpl implements ContenderService {
         return contenderRepository.findTwoRandomContendersNotUsedBefore(ids);
     }
 
+    @Override
+    public List<Contender> getTwoRandomContenders() {
+        return contenderRepository.findTwoRandomContenders();
+    }
+
+    @Override
+    public void updateContenderIncrementScoreBy1(Long id) {
+         contenderRepository.updateContenderIncrementScoreBy1(id);
+    }
 
 }

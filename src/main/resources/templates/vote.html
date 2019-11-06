@@ -4,16 +4,31 @@
 <head>
     <title>Taco Balls</title>
     <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <style>
+        button {
+            background: none;
+            border: none;
+            outline: none;
+            text-decoration: underline;
+            color: blue;
+            cursor: pointer;
+        }
+        button:hover {
+            color: lightblue;
+        }
+    </style>
 </head>
 
 <body>
 
 <h3>Cookie is: <span th:text="${cookie}"></span></h3>
 
-<form method="post" th:object="${contenders}">
-    <div></div>
-
-</form>
+<div th:each="contender : *{contenderList}">
+    <form method="post">
+        <input type="hidden" name="contenderId" th:value="*{contender.id}"/>
+        <button type="submit" th:text="*{contender.name}"></button>
+    </form>
+</div>
 
 
 </body>

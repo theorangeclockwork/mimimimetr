@@ -13,6 +13,8 @@
     <tr>
         <th> Name </th>
         <th> Score </th>
+        <th> Img </th>
+        <th> Img Path </th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +24,8 @@
     <tr th:each="contender : ${contenders}">
         <td><span th:text="${contender.name}"> Name </span></td>
         <td><span th:text="${contender.score}"> Name </span></td>
+        <td><img th:src="@{${contender.imageUrl}}" th:alt="${contender.name}" /></td>
+        <td><span th:text="${contender.imageUrl}"> Name </span></td>
     </tr>
     </tbody>
 </table>

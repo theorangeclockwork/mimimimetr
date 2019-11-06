@@ -19,9 +19,8 @@ public class Contender {
     @Column(name = "score", nullable = false)
     private long score;
 
-//    @Lob
-//    @Column(name = "image", nullable = false)
-//    private byte[] image;
+    @Column(name = "imageUrl", nullable = false)
+    private String imageUrl;
 
 
 }
