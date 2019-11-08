@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 public interface ContenderService {
-
     List<Contender> getTop10ByScore();
 
     void save(Contender contender);

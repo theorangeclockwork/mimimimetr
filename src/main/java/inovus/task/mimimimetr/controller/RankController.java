@@ -10,21 +10,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class RankController {
-
     private final ContenderService contenderService;
-    private final static String uploadDirectory = "C:\\Users\\Cifer\\IdeaProjects\\mimimimetr\\src\\main\\resources\\image";
 
     @Autowired
     public RankController(ContenderService contenderService) {
@@ -32,15 +29,14 @@ public class RankController {
     }
 
     @GetMapping("/ranking")
-    public String showVoting(@CookieValue(value = "usedIds", defaultValue = "") String usedIds,
-                             Model model,
-                             HttpServletResponse response) {
-        List<String> list = new ArrayList<>(Arrays.asList(usedIds.split("\\.")));
-        Set<Long> set;
+    public String showVoting(
+            @CookieValue(value = "usedIds", defaultValue = "") String usedIds,
+            Model model,
+            HttpServletResponse response
+    ) {
         List<Contender> contenderPair;
-
         if (!usedIds.isEmpty()) {
-            set = list.stream().filter(s -> s.length() > 0).map(Long::valueOf).collect(Collectors.toSet());
+            Set<Long> set = Arrays.stream(usedIds.split("\\.")).filter(s -> s.length() > 0).map(Long::valueOf).collect(Collectors.toSet());
             contenderPair = contenderService.getTwoRandomContendersNotUsedBefore(set);
         } else {
             contenderPair = contenderService.getTwoRandomContenders();
@@ -75,29 +71,29 @@ public class RankController {
 
     @GetMapping("/contenders/add")
     public String addContenders(Model model) {
-        ContendersDto contendersDto = new ContendersDto();
-
-        for (int i = 0; i < 10; i++) {
-            contendersDto.addContender(new Contender());
-        }
-
+        List<Contender> contenders = IntStream.range(0, 10)
+                .boxed()
+                .map(e -> new Contender())
+                .collect(Collectors.toList());
+        ContendersDto contendersDto = new ContendersDto(contenders);
         model.addAttribute("contenders", contendersDto);
         return "addContenders";
     }
 
     @PostMapping("/contenders/add")
     public String processContenders(@ModelAttribute ContendersDto contendersDto,
-                                    @RequestParam("images") MultipartFile[] files) throws IOException {
-
-        for (int i = 0; i < contendersDto.getContenderList().size(); i++) {
-            Path fileNameAndPath = Paths.get(uploadDirectory, files[i].getOriginalFilename());
-
-            System.out.println(fileNameAndPath);
-
-            contendersDto.getContenderList().get(i).setImageUrl(String.valueOf(fileNameAndPath));
-            Files.write(fileNameAndPath, files[i].getBytes());
-        }
-        contenderService.saveAll(contendersDto.getContenderList());
+                                    @RequestParam("images") MultipartFile[] files) {
+        List<Contender> contenders = IntStream.range(0, contendersDto.getContenderList().size()).boxed()
+                .map(i -> {
+                    try {
+                        return contendersDto.getContenderList().get(i).setImageData(files[i].getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .filter(contender -> contender.getName().length() > 0)
+                .collect(Collectors.toList());
+        contenderService.saveAll(contenders);
         return "redirect:/contenders/all";
     }
 

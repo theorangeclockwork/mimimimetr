@@ -5,6 +5,7 @@ import inovus.task.mimimimetr.model.Contender;
 import java.util.List;
 
 public class CookiesUtil {
+
     public static String updateCookies(String cookie, List<Contender> contenders) {
         StringBuilder builder = new StringBuilder(cookie);
         for (Contender c : contenders) {
@@ -13,4 +14,5 @@ public class CookiesUtil {
 
         return String.valueOf(builder);
     }
+
 }

@@ -2,34 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Taco Balls</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <title>Cutemash</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+
 </head>
 
 <body>
 
-<table>
+<div id="banner">
+    <div id="banner-content">
+        CUTEMASH
+    </div>
+</div>
+
+<table class="tableDef">
     <thead>
-    <tr>
-        <th> Name </th>
-        <th> Score </th>
-        <th> Img </th>
-        <th> Img Path </th>
+    <tr th:if="${!contenders.empty}">
+        <th class="textFont"> Топ 10:</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${contenders.empty}">
-        <td colspan="2"> No Cats Available </td>
+    <tr th:if="${contenders.size() < 10}">
+        <td class="cell-name" colspan="2"> Котов не хватает :( <br>
+            <button><a href="/contenders/add"> ---> ДОБАВИТЬ КОТОВ <--- </a></button>
+        </td>
     </tr>
+
     <tr th:each="contender : ${contenders}">
-        <td><span th:text="${contender.name}"> Name </span></td>
-        <td><span th:text="${contender.score}"> Name </span></td>
-        <td><img th:src="@{${contender.imageUrl}}" th:alt="${contender.name}" /></td>
-        <td><span th:text="${contender.imageUrl}"> Name </span></td>
+        <td><img height="150" width="150" th:src="${contender.imageDataAsBase64}"/></td>
+        <td><span th:text="${contender.name}"></span></td>
     </tr>
     </tbody>
 </table>
 
+
 </body>
 
 </html>
+

@@ -41,7 +41,6 @@ public class ContenderServiceImpl implements ContenderService {
         return contenderRepository.findAll();
     }
 
-
     @Override
     public List<Contender> getTwoRandomContendersNotUsedBefore(Set<Long> ids) {
         return contenderRepository.findTwoRandomContendersNotUsedBefore(ids);
@@ -54,7 +53,7 @@ public class ContenderServiceImpl implements ContenderService {
 
     @Override
     public void updateContenderIncrementScoreBy1(Long id) {
-         contenderRepository.updateContenderIncrementScoreBy1(id);
+        contenderRepository.updateContenderIncrementScoreBy1(id);
     }
 
 }

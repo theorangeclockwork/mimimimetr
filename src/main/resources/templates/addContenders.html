@@ -2,32 +2,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Taco Balls</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <title>Cutemash</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <style>
+        .buttons {
+            padding-top: 100px;
+        }
+    </style>
+
 </head>
 
 <body>
 
-<form method="post" th:action="@{/contenders/add}" th:object="${contenders}" enctype="multipart/form-data">
+<div id="banner">
+    <div id="banner-content">
+        CUTEMASH
+    </div>
+</div>
 
+<form method="post" th:action="@{/contenders/add}" th:object="${contenders}" enctype="multipart/form-data">
     <fieldset>
-        <input type="submit" id="submitButton" th:value="Save">
-        <input type="reset" id="resetButton" name="reset" th:value="Reset">
-        <table>
+        <div class="buttons">
+            <input type="submit" id="submitButton" th:value="Сохранить">
+            <input type="reset" id="resetButton" name="reset" th:value="Сбросить">
+        </div>
+
+        <table class="tableDef">
             <thead>
             <tr>
-                <th> Name </th>
-                <th> Image </th>
+                <th class="textFont"> Имя</th>
+                <th class="textFont"> Фото кота</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="contender, item : *{contenderList}">
-                <td><input th:field = "*{contenderList[__${item.index}__].name} "></td>
+                <td><input th:field="*{contenderList[__${item.index}__].name} "></td>
                 <td><input name="images" type="file"></td>
             </tr>
             </tbody>
         </table>
     </fieldset>
+
+    <button><a href="/ranking"> Оценить котов </a></button>
 
 </form>
 </body>

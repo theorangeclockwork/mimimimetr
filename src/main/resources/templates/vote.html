@@ -2,35 +2,57 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Taco Balls</title>
-    <link rel="stylesheet" th:href="@{/styles.css}"/>
+    <title>Cutemash</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <style>
-        button {
-            background: none;
-            border: none;
-            outline: none;
-            text-decoration: underline;
-            color: blue;
-            cursor: pointer;
+        tr {
+            display: block;
+            float: left;
         }
-        button:hover {
-            color: lightblue;
+
+        th, td {
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-<h3>Cookie is: <span th:text="${cookie}"></span></h3>
-
-<div th:each="contender : *{contenderList}">
-    <form method="post">
-        <input type="hidden" name="contenderId" th:value="*{contender.id}"/>
-        <button type="submit" th:text="*{contender.name}"></button>
-    </form>
+<div id="banner">
+    <div id="banner-content">
+        CUTEMASH
+    </div>
 </div>
 
+<h1>Могли ли коты выбрать свою мимимишность? Нет. <br> Бывают ли коты недостаточно мимимишными? Нет.</h1>
+<br>
+<h1>Кто <br> милее? <br></h1>
+
+<table class="tableVote">
+    <tbody>
+    <tr class="a" th:each="contender : *{contenderList}">
+        <td>
+            <form method="post">
+                <input type="hidden" name="contenderId" th:value="*{contender.id}"/>
+                <button type="submit">
+                    <img height="200" width="200" th:src="${contender.imageDataAsBase64}"/>
+                </button>
+            </form>
+        </td>
+        <td class="cell-name">
+            <form method="post">
+                <input type="hidden" name="contenderId" th:value="*{contender.id}"/>
+                <button type="submit" th:text="*{contender.name}"></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<button><a href="/contenders/add"> Добавить котов </a></button>
+<button><a href="/ranking/result"> Результаты </a></button>
 
 </body>
 
 </html>
+

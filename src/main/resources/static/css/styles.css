@@ -1,0 +1,70 @@
+button {
+    background: none;
+    border: none;
+    outline: none;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
+    font: 150% "Comic Sans MS";
+}
+
+button:hover {
+    color: lightblue;
+}
+
+.tableDef {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+}
+
+.tableVote {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    margin-top: 50px;
+}
+
+.a {
+    padding: 100px;
+}
+
+.cell-name {
+    text-align: center;
+}
+
+h1 {
+    font: 200% "Times New Roman";
+    text-align: center;
+    padding-top: 80px;
+    padding-bottom: 10px;
+}
+
+div#banner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #dd0f4a;
+    width: 100%;
+    align-content: center;
+}
+
+div#banner-content {
+    width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    text-align: center;
+    font: 200% "Impact";
+    color: white;
+}
+
+fieldset {
+    border: 0;
+}
+
+.textFont {
+    font: 100% "Times New Roman";
+}
